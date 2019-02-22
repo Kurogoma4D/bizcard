@@ -10,16 +10,24 @@
     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
     <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
 
-    <a-scene embedded arjs="debugUIEnabled:false; sourceType: webcam;">
-        <a-marker preset='hiro'>
-            <a-cylinder position="-4 3 -5" rotation="65 45 0" radius="1" height="1" theta-start="57" theta-length="286"
-                side="double" color="#FFC65D"></a-cylinder>
-            
-            <!-- Curved cylinder -->
-            <a-cylinder position="0 3 -5" rotation="45 60 0" radius="1.5" height="1" theta-start="0" theta-length="172"
-                side="double" open-ended="true" color="#93648D"></a-cylinder>
-        </a-marker>
-        <a-entity camera></a-entity>
+    <a-scene embedded arjs='trackingMethod: best;'>
+    
+        <!-- Create a anchor to attach your augmented reality -->
+        <a-anchor hit-testing-enabled='true'>
+    
+            <!-- Add your augmented reality here -->
+            <a-box position='0 0.5 0' material='opacity: 0.5; side:double; color:red;'>
+                <a-torus-knot radius='0.26' radius-tubular='0.05'>
+                    <a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite">
+                    </a-animation>
+                </a-torus-knot>
+            </a-box>
+    
+        </a-anchor>
+    
+        <!-- Define a static camera -->
+        <a-camera-static />
+    
     </a-scene>
 </body>
 
