@@ -12,7 +12,12 @@
 
     <a-scene embedded arjs="debugUIEnabled:false; sourceType: webcam;">
         <a-marker preset='hiro'>
-            <a-box position="0 0 0" wireframe="true"></a-box>
+            <a-cylinder position="-4 3 -5" rotation="65 45 0" radius="1" height="1" theta-start="57" theta-length="286"
+                side="double" color="#FFC65D"></a-cylinder>
+            
+            <!-- Curved cylinder -->
+            <a-cylinder position="0 3 -5" rotation="45 60 0" radius="1.5" height="1" theta-start="0" theta-length="172"
+                side="double" open-ended="true" color="#93648D"></a-cylinder>
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
