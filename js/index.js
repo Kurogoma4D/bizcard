@@ -71,7 +71,7 @@ function initScene(){
     // adding marker
     var hiroMarker = new THREE.Group();
     var controls = new THREEx.ArMarkerControls(context, hiroMarker, {
-        type: "hiro",
+        type: "pattern",
         patternUrl: "assets/marker/pattern-hiro.patt"
     });
     scene.add(hiroMarker);
