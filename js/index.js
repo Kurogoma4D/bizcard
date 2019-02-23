@@ -69,7 +69,7 @@ context.init(function onCompleted(){
 initScene();
 function initScene(){
     // adding marker
-    var hiroMarker = new THREE.group();
+    var hiroMarker = new THREE.Group();
     var controls = new THREEx.ArMarkerControls(context, hiroMarker, {
         type: "hiro",
         patternUrl: "assets/marker/pattern-hiro.patt"
