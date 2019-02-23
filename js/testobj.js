@@ -8,7 +8,7 @@ class TestPlane extends THREE.Mesh {
         this.overdraw = true;
         this.name = name;
         this.position.set(x, y, z);
-        this.rotation.set(-Math.PI / 2.0, 0, 0);
+        //this.rotation.set(-Math.PI / 2.0, 0, 0);
     }
 
     make(){

@@ -77,7 +77,7 @@ function initScene(){
     scene.add(hiroMarker);
 
     // test model: plane
-    var plane = new TestPlane("plane", 0, 0.3, 0.7);
+    var plane = new TestPlane("plane", 0, 0.5, 0);
     hiroMarker.add(plane);
 }
 
@@ -102,6 +102,9 @@ window.addEventListener("mousedown", function(e){
 
 function picked(objName){
     switch(objName){
+        case "plane":
+            console.log("plane clicked");
+            break;
         default:
             break;
     }
