@@ -63,4 +63,63 @@ context.init(function onCompleted(){
     camera.projectionMatrix.copy(context.getProjectionMatrix());
 });
 
-//TODO: scene
+//  -----
+//  settings on scene
+//  -----
+initScene();
+function initScene(){
+    // adding marker
+    var hiroMarker = new THREE.group();
+    var controls = new THREEx.ArMarkerControls(context, hiroMarker, {
+        type: "hiro",
+        patternUrl: "assets/marker/pattern-hiro.patt"
+    });
+    scene.add(hiroMarker);
+
+    // test model: plane
+    var plane = new TestPlane("plane");
+    plane.make(0, 0.3, 0.7);
+    hiroMarker.add(plane.getObj);
+}
+
+// click event
+window.addEventListener("mousedown", function(e){
+    var curX = e.clientX;
+    var curY = e.clientY;
+    // normalize position for -1 ~ +1
+    curX = (curX/window.innerWidth)*2-1;
+    curY = -(curY/window.innerHeight)*2+1;
+
+    var pos = new THREE.Vector3(curX, curY, 1);
+    pos.unproject(camera);
+
+    // raycasting
+    var ray = new THREE.Raycaster(camera.position, pos.sub(camera.position).normalize());
+    var obj = ray.intersectObjects(scene.children, true);
+    if(obj.length > 0){
+        picked(obj[0].object.name);
+    }
+});
+
+function picked(objName){
+    switch(objName){
+        default:
+            break;
+    }
+}
+
+// -----
+// rendering
+// -----
+
+function renderScene(){
+    requestAnimationFrame(renderScene);
+
+    if(source.ready === false){
+        return;
+    }
+    context.update(source.domElement);
+    renderer.render(scene, camera);
+}
+
+renderScene();
