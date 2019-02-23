@@ -77,9 +77,8 @@ function initScene(){
     scene.add(hiroMarker);
 
     // test model: plane
-    var plane = new TestPlane("plane");
-    plane.make(0, 0.3, 0.7);
-    hiroMarker.add(plane.getObj);
+    var plane = new TestPlane("plane", 0, 0.3, 0.7);
+    hiroMarker.add(plane);
 }
 
 // click event
