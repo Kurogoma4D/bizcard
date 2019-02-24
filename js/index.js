@@ -79,6 +79,9 @@ function initScene(){
     // test model: plane
     var plane = new TestPlane("plane", 0, 0.5, 0);
     hiroMarker.add(plane);
+    // environmental particle
+    var particle = new EnvironmentParticle();
+    hiroMarker.add(particle);
 }
 
 // click event
