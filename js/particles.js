@@ -2,9 +2,9 @@ class EnvironmentParticle extends THREE.Mesh {
     constructor(){
         const geometry = new THREE.Geometry();
         // range of particles scattering
-        const SIZE = 3000;
+        const SIZE = 400;
         // number of particles
-        const NUM = 5000;
+        const NUM = 1200;
         var colors = [];
 
         for(let i=0; i<NUM; i++){
@@ -14,17 +14,17 @@ class EnvironmentParticle extends THREE.Mesh {
                 SIZE * (Math.random() - 0.5),
             ));
             geometry.colors.push(
-                new THREE.Color(Math.random() * 0xFFFFFF)
+                new THREE.Color((Math.random() * 0.5 + 0.5) * 0xFFFFFF)
             );
         }
 
         const material = new THREE.PointsMaterial({
-            size: 25,
+            size: 5,
             vertexColors: THREE.VertexColors,
             map: new THREE.TextureLoader().load("assets/textures/particleTex.png"),
             transparent: true,
         });
-        material.alphaTest = 0.1;
+       // material.alphaTest = 0;
 
         return new THREE.Points(geometry, material);
     }
