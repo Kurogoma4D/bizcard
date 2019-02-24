@@ -3,6 +3,8 @@ var renderer = new THREE.WebGLRenderer({
     antialias: true,
     alpha: true
 });
+var clock = new THREE.Clock(true);
+var particle = new EnvironmentParticle();
 
 // settings on renderer
 renderer.gammaOutput = true;
@@ -63,6 +65,9 @@ context.init(function onCompleted(){
     camera.projectionMatrix.copy(context.getProjectionMatrix());
 });
 
+// GPU particle initialize
+//var particleSystem = new PTsystem();
+
 //  -----
 //  settings on scene
 //  -----
@@ -79,9 +84,12 @@ function initScene(){
     // test model: plane
     var plane = new TestPlane("plane", 0, 0.5, 0);
     hiroMarker.add(plane);
+
     // environmental particle
-    var particle = new EnvironmentParticle();
     hiroMarker.add(particle);
+
+    // add GPU particle
+    //hiroMarker.add(particleSystem);
 }
 
 // click event
@@ -123,6 +131,30 @@ function renderScene(){
     if(source.ready === false){
         return;
     }
+    //particleSystem.animate(clock);
+    //particleSystem.update();
+    for (let i=particle.geometry.vertices.length-1; i>=0; i--){
+        var dy = -0.3;
+        /*
+        var pt = new THREE.Vector3(
+            particle.geometry.vertices[i].x,
+            particle.geometry.vertices[i].y,
+            particle.geometry.vertices[i].z
+        );
+        */
+        //pt.add(new THREE.Vector3(dx, dy, dz));
+        particle.geometry.vertices[i].add(new THREE.Vector3(0, dy, 0));
+        if (particle.geometry.vertices[i].y < -200) {
+            particle.geometry.vertices.splice(i, 1);
+            particle.geometry.vertices.push(new THREE.Vector3(
+                400 * (Math.random() - 0.5),
+                400 * Math.random(),
+                400 * (Math.random() - 0.5),
+            ));
+        }
+    };
+    particle.geometry.verticesNeedUpdate = true;
+
     context.update(source.domElement);
     renderer.render(scene, camera);
 }

@@ -14,7 +14,7 @@ class EnvironmentParticle extends THREE.Mesh {
                 SIZE * (Math.random() - 0.5),
             ));
             geometry.colors.push(
-                new THREE.Color((Math.random() * 0.5 + 0.5) * 0xFFFFFF)
+                new THREE.Color((Math.random() * 0.05 + 0.95) * 0xFFFFFF)
             );
         }
 
@@ -23,6 +23,7 @@ class EnvironmentParticle extends THREE.Mesh {
             vertexColors: THREE.VertexColors,
             map: new THREE.TextureLoader().load("assets/textures/particleTex.png"),
             transparent: true,
+            blending: THREE.AdditiveBlending,
         });
        // material.alphaTest = 0;
 
