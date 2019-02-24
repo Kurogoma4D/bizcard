@@ -7,15 +7,7 @@ class TestPlane extends THREE.Mesh {
         super(geometry, material);
         this.overdraw = true;
         this.name = name;
-        this.position.set(x, y, z);
-        //this.rotation.set(-Math.PI / 2.0, 0, 0);
-    }
-
-    make(){
-        
-    }
-
-    getObj(){
-        return this.obj;
+        this.position.set(x, y-0.5, z);
+        this.rotation.set(-Math.PI / 2.0, 0, 0);
     }
 }
