@@ -87,7 +87,7 @@ function initScene(){
 
     // environmental particle
     hiroMarker.add(particle);
-    console.log(particle.speeds);
+
     // add GPU particle
     //hiroMarker.add(particleSystem);
     scene.fog = new THREE.FogExp2(0x000000, 0.0035);
