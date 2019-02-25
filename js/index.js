@@ -87,9 +87,10 @@ function initScene(){
 
     // environmental particle
     hiroMarker.add(particle);
-
+    console.log(particle.speeds);
     // add GPU particle
     //hiroMarker.add(particleSystem);
+    scene.fog = new THREE.FogExp2(0x000000, 0.0035);
 }
 
 // click event
@@ -133,26 +134,22 @@ function renderScene(){
     }
     //particleSystem.animate(clock);
     //particleSystem.update();
+    var c = {};
+
+    c = particle.material.color.getHSL({ target: c });
+    var nextHue = (c.h + clock.getDelta() * 0.05) % 1.0;
+    particle.material.color.setHSL(nextHue, c.s, c.l);
+    
     for (let i=particle.geometry.vertices.length-1; i>=0; i--){
-        var dy = -0.3;
-        /*
-        var pt = new THREE.Vector3(
-            particle.geometry.vertices[i].x,
-            particle.geometry.vertices[i].y,
-            particle.geometry.vertices[i].z
-        );
-        */
-        //pt.add(new THREE.Vector3(dx, dy, dz));
+        var dy = particle.speeds[i];
+        
         particle.geometry.vertices[i].add(new THREE.Vector3(0, dy, 0));
-        if (particle.geometry.vertices[i].y < -200) {
+        if (particle.geometry.vertices[i].y < 0.5) {
             particle.geometry.vertices.splice(i, 1);
-            particle.geometry.vertices.push(new THREE.Vector3(
-                400 * (Math.random() - 0.5),
-                400 * Math.random(),
-                400 * (Math.random() - 0.5),
-            ));
+            particle.geometry.vertices.push(randomPointInSphere(4));
         }
     };
+    particle.geometry.colorsNeedUpdate = true;
     particle.geometry.verticesNeedUpdate = true;
 
     context.update(source.domElement);
