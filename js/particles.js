@@ -4,7 +4,7 @@ class EnvironmentParticle extends THREE.Points {
         // range of particles scattering
         const SIZE = 4;
         // number of particles
-        const NUM = 500;
+        const NUM = 250;
         var colors = [];
         const sp = [];
 
@@ -15,7 +15,8 @@ class EnvironmentParticle extends THREE.Points {
                 new THREE.Color((Math.random() * 0.05 + 0.95) * 0xFFFFFF)
             );
             */
-            sp.push((-Math.random() * 0.09 + 0.01) * 0.3);
+            // speed : (minus random 0.01~0.1) * magnificant
+            sp.push((-Math.random() * 0.09 + 0.01) * 0.25);
         }
 
         const material = new THREE.PointsMaterial({
