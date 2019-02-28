@@ -1,7 +1,8 @@
 var scene = new THREE.Scene();
 var renderer = new THREE.WebGLRenderer({
     antialias: true,
-    alpha: true
+    alpha: true,
+    logarithmicDepthBuffer: true
 });
 var clock = new THREE.Clock(true);
 var particle = new EnvironmentParticle();
