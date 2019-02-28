@@ -92,7 +92,7 @@ function initScene(){
 
     // animation load
     // source is mixamo: Idle
-    const animationFiles = ['assets/models/Greeting.glb'];
+    const animationFiles = ['assets/models/greeting-noskin-cmd.glb'];
     const animationLoader = new THREE.GLTFLoader();
     for (let i = 0; i < animationFiles.length; ++i) {
         animationLoader.load(animationFiles[i], function () { console.log('Animation ' + i + ' loaded.') });
@@ -102,7 +102,6 @@ function initScene(){
     let loadAnimationIndex = 0;
 
     // vrm mode load
-    /*
     var vloader = new THREE.VRMLoader();
     vloader.load('assets/models/avater013.vrm', function (vrm) {
         vrm.scene.name = "avater";
@@ -151,22 +150,23 @@ function initScene(){
         });
         mixers.push(mixer);
     });
-    */
+   /*
     var vloader = new THREE.GLTFLoader();
     vloader.load('assets/models/Greeting.glb', function(model){
-        const gltf = model;
-        gltf.scene.rotation.set(0, Math.PI, 0);
-        hiroMarker.add(gltf.scene);
-        const animations = gltf.animations;
+        const vrm = model;
+        vrm.scene.name = "avater";
+        vrm.scene.rotation.set(0, Math.PI, 0);
+        hiroMarker.add(vrm.scene);
+        const animations = vrm.animations;
 
-        if(animations && animations.length){
-            let mixer = new THREE.AnimationMixer(gltf.scene);
-            for(let i=0; i<animations.length; i++){
-                mixer.clipAction(animations[i]).play();
-            }
+        if(animations){
+            let mixer = new THREE.AnimationMixer(vrm.scene);
             mixers.push(mixer);
+            const action = mixer.clipAction(animations[0]);
+            action.play();
         }
     });
+    */
 
     // add GPU particle
     //hiroMarker.add(particleSystem);
@@ -194,8 +194,8 @@ window.addEventListener("mousedown", function(e){
 
 function picked(objName){
     switch(objName){
-        case "plane":
-            console.log("plane clicked");
+        case "avater":
+            console.log("character tapped");
             break;
         default:
             break;
