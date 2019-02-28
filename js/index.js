@@ -119,6 +119,7 @@ function initScene(){
             }
         });
 
+        vrm.scene.rotation.set(0,Math.PI,0);
         hiroMarker.add(vrm.scene);
     });
 
