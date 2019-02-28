@@ -90,6 +90,7 @@ function initScene(){
     // environmental particle
     hiroMarker.add(particle);
 
+    /*
     // animation load
     // source is mixamo: Idle
     const animationFiles = ['assets/models/greeting-noskin.gltf'];
@@ -152,12 +153,13 @@ function initScene(){
         });
         mixers.push(mixer);
     });
-   /*
+    */
+   
     var vloader = new THREE.GLTFLoader();
-    vloader.load('assets/models/Greeting.glb', function(model){
+    vloader.load('assets/models/greeting-skin.glb', function(model){
         const vrm = model;
         vrm.scene.name = "avater";
-        vrm.scene.rotation.set(0, Math.PI, 0);
+        //vrm.scene.rotation.set(0, Math.PI, 0);
         hiroMarker.add(vrm.scene);
         const animations = vrm.animations;
 
@@ -168,7 +170,7 @@ function initScene(){
             action.play();
         }
     });
-    */
+    
 
     // add GPU particle
     //hiroMarker.add(particleSystem);
