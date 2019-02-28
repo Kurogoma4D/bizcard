@@ -5,6 +5,7 @@ var renderer = new THREE.WebGLRenderer({
 });
 var clock = new THREE.Clock(true);
 var particle = new EnvironmentParticle();
+var mixers = new Array();
 
 // settings on renderer
 renderer.gammaOutput = true;
@@ -88,6 +89,19 @@ function initScene(){
     // environmental particle
     hiroMarker.add(particle);
 
+    // animation load
+    // source is mixamo: Idle
+    const animationFiles = ['assets/models/Greeting.glb'];
+    const animationLoader = new THREE.GLTFLoader();
+    for (let i = 0; i < animationFiles.length; ++i) {
+        animationLoader.load(animationFiles[i], function () { console.log('Animation ' + i + ' loaded.') });
+    }
+
+    let loadModelIndex = 0;
+    let loadAnimationIndex = 0;
+
+    // vrm mode load
+    /*
     var vloader = new THREE.VRMLoader();
     vloader.load('assets/models/avater013.vrm', function (vrm) {
         vrm.scene.name = "avater";
@@ -121,6 +135,36 @@ function initScene(){
 
         vrm.scene.rotation.set(0,Math.PI,0);
         hiroMarker.add(vrm.scene);
+
+        // registering animation
+        let mixer = new THREE.AnimationMixer(vrm.scene);
+        animationLoader.load(animationFiles[loadAnimationIndex], function (gltf) {
+            const animations = gltf.animations;
+            if (animations && animations.length) {
+                for (let animation of animations) {
+                    correctBoneName(animation.tracks);
+                    correctCoordinate(animation.tracks);
+                    mixer.clipAction(animation).play();
+                }
+            }
+        });
+        mixers.push(mixer);
+    });
+    */
+    var vloader = new THREE.GLTFLoader();
+    vloader.load('assets/models/Greeting.glb', function(model){
+        const gltf = model;
+        gltf.scene.rotation.set(0, Math.PI, 0);
+        hiroMarker.add(gltf.scene);
+        const animations = gltf.animations;
+
+        if(animations && animations.length){
+            let mixer = new THREE.AnimationMixer(gltf.scene);
+            for(let i=0; i<animations.length; i++){
+                mixer.clipAction(animations[i]).play();
+            }
+            mixers.push(mixer);
+        }
     });
 
     // add GPU particle
@@ -170,12 +214,15 @@ function renderScene(){
     //particleSystem.animate(clock);
     //particleSystem.update();
     var c = {};
+    var dt = clock.getDelta();
 
+    // particle update
+    // color, position
     c = particle.material.color.getHSL({ target: c });
-    var nextHue = (c.h + clock.getDelta() * 0.05) % 1.0;
+    var nextHue = (c.h + dt * 0.05) % 1.0;
     particle.material.color.setHSL(nextHue, c.s, c.l);
     
-    for (let i=particle.geometry.vertices.length-1; i>=0; i--){
+    for(let i=particle.geometry.vertices.length-1; i>=0; i--){
         var dy = particle.speeds[i];
         
         particle.geometry.vertices[i].add(new THREE.Vector3(0, dy, 0));
@@ -183,9 +230,14 @@ function renderScene(){
             particle.geometry.vertices.splice(i, 1);
             particle.geometry.vertices.push(randomPointInSphere(4));
         }
-    };
+    }
     particle.geometry.colorsNeedUpdate = true;
     particle.geometry.verticesNeedUpdate = true;
+
+    // animation update
+    for(let i=0, len=mixers.length; i<len; i++){
+        mixers[i].update(dt);
+    }
 
     context.update(source.domElement);
     renderer.render(scene, camera);
