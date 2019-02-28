@@ -92,7 +92,7 @@ function initScene(){
 
     // animation load
     // source is mixamo: Idle
-    const animationFiles = ['assets/models/greeting-noskin-cmd.glb'];
+    const animationFiles = ['assets/models/greeting-noskin.gltf'];
     const animationLoader = new THREE.GLTFLoader();
     for (let i = 0; i < animationFiles.length; ++i) {
         animationLoader.load(animationFiles[i], function () { console.log('Animation ' + i + ' loaded.') });
@@ -133,7 +133,9 @@ function initScene(){
             }
         });
 
-        vrm.scene.rotation.set(0,Math.PI,0);
+        vrm.scene.position.set(0, 0, 0);
+        vrm.scene.scale.set(1, 1, 1);
+        vrm.scene.rotation.set(0, Math.PI, 0);
         hiroMarker.add(vrm.scene);
 
         // registering animation
