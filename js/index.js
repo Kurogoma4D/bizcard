@@ -156,7 +156,7 @@ function initScene(){
     */
    
     var vloader = new THREE.GLTFLoader();
-    vloader.load('assets/models/greeting-skin.glb', function(model){
+    vloader.load('assets/models/greeting-skin-v3.glb', function(model){
         const vrm = model;
         vrm.scene.name = "avater";
         //vrm.scene.rotation.set(0, Math.PI, 0);
