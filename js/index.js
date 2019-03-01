@@ -24,9 +24,6 @@ var camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeigh
 scene.add(camera);
 
 // settings on light
-var light = new THREE.DirectionalLight(0xffffff);
-light.position.set(0, 0, 2);
-//scene.add(light);
 var amb = new THREE.AmbientLight(0xFFDDCC);
 scene.add(amb);
 
