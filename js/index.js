@@ -20,7 +20,7 @@ document.body.appendChild(renderer.domElement);
 
 // settings on camera
 // fov, aspect, near clipping, far clipping
-var camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1000, 10000);
+var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 1000, 10000);
 scene.add(camera);
 
 // settings on light
