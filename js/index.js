@@ -49,6 +49,8 @@ function onResize(){
     if(context.arController != null){
         source.copyElementSizeTo(context.arController.canvas);
     }
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
 }
 
 // settings on camera param, marker
