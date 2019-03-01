@@ -26,7 +26,9 @@ scene.add(camera);
 // settings on light
 var light = new THREE.DirectionalLight(0xffffff);
 light.position.set(0, 0, 2);
-scene.add(light);
+//scene.add(light);
+var amb = new THREE.AmbientLight(0xFFDDCC);
+scene.add(amb);
 
 // settings on AR
 // media source
@@ -89,91 +91,24 @@ function initScene(){
 
     // environmental particle
     hiroMarker.add(particle);
-
-    /*
-    // animation load
-    // source is mixamo: Idle
-    const animationFiles = ['assets/models/greeting-noskin.gltf'];
-    const animationLoader = new THREE.GLTFLoader();
-    for (let i = 0; i < animationFiles.length; ++i) {
-        animationLoader.load(animationFiles[i], function () { console.log('Animation ' + i + ' loaded.') });
-    }
-
-    let loadModelIndex = 0;
-    let loadAnimationIndex = 0;
-
-    // vrm mode load
-    var vloader = new THREE.VRMLoader();
-    vloader.load('assets/models/avater013.vrm', function (vrm) {
-        vrm.scene.name = "avater";
-        vrm.scene.traverse(function (object) {
-            if (object.material) {
-                if (Array.isArray(object.material)) {
-                    for (var i = 0, il = object.material.length; i < il; i++) {
-                        let material = new THREE.MeshBasicMaterial();
-                        THREE.Material.prototype.copy.call(material, object.material[i]);
-                        material.color.copy(object.material[i].color);
-                        material.map = object.material[i].map;
-                        material.lights = false;
-                        material.skinning = object.material[i].skinning;
-                        material.morphTargets = object.material[i].morphTargets;
-                        material.morphNormals = object.material[i].morphNormals;
-                        object.material[i] = material;
-                    }
-                } else {
-                    let material = new THREE.MeshBasicMaterial();
-                    THREE.Material.prototype.copy.call(material, object.material);
-                    material.color.copy(object.material.color);
-                    material.map = object.material.map;
-                    material.lights = false;
-                    material.skinning = object.material.skinning;
-                    material.morphTargets = object.material.morphTargets;
-                    material.morphNormals = object.material.morphNormals;
-                    object.material = material;
-                }
-            }
-        });
-
-        vrm.scene.position.set(0, 0, 0);
-        vrm.scene.scale.set(1, 1, 1);
-        vrm.scene.rotation.set(0, Math.PI, 0);
-        hiroMarker.add(vrm.scene);
-
-        // registering animation
-        let mixer = new THREE.AnimationMixer(vrm.scene);
-        animationLoader.load(animationFiles[loadAnimationIndex], function (gltf) {
-            const animations = gltf.animations;
-            if (animations && animations.length) {
-                for (let animation of animations) {
-                    correctBoneName(animation.tracks);
-                    correctCoordinate(animation.tracks);
-                    mixer.clipAction(animation).play();
-                }
-            }
-        });
-        mixers.push(mixer);
-    });
-    */
    
+    // animated model load
     var vloader = new THREE.GLTFLoader();
     vloader.load('assets/models/greeting-skin-v3.glb', function(model){
-        const vrm = model;
-        vrm.scene.name = "avater";
-        //vrm.scene.rotation.set(0, Math.PI, 0);
-        hiroMarker.add(vrm.scene);
-        const animations = vrm.animations;
+        const gltf = model;
+        gltf.scene.name = "avater";
+
+        hiroMarker.add(gltf.scene);
+        const animations = gltf.animations;
 
         if(animations){
-            let mixer = new THREE.AnimationMixer(vrm.scene);
+            let mixer = new THREE.AnimationMixer(gltf.scene);
             mixers.push(mixer);
             const action = mixer.clipAction(animations[0]);
             action.play();
         }
     });
     
-
-    // add GPU particle
-    //hiroMarker.add(particleSystem);
     scene.fog = new THREE.FogExp2(0x000000, 0.0035);
 }
 
