@@ -17,7 +17,7 @@ function randomPointInSphere(radius) {
 function randomPointInSquare(length) {
 
     const x = Math.random() * 2.0 - 1.0;
-    const y = Math.random();
+    const y = 0;
     const z = Math.random() * 2.0 - 1.0;
 
     return new THREE.Vector3(

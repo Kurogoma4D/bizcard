@@ -1,7 +1,7 @@
 class TestPlane extends THREE.Mesh {
     constructor(name, x, y, z){
         const material = new THREE.MeshBasicMaterial({
-            color: 0xffffff
+            color: 0x000000
         });
         const geometry = new THREE.PlaneGeometry(1, 1);
         super(geometry, material);

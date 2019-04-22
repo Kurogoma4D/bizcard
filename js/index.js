@@ -163,9 +163,8 @@ function renderScene(){
         var dy = particle.speeds[i];
         
         particle.geometry.vertices[i].add(new THREE.Vector3(0, dy, 0));
-        if (particle.geometry.vertices[i].y < 0.5) {
-            particle.geometry.vertices.splice(i, 1);
-            particle.geometry.vertices.push(randomPointInSquare(1));
+        if (particle.geometry.vertices[i].y > particle.speeds[i] * 40) {
+            particle.deathAndRebirth(i);
         }
     }
     particle.geometry.colorsNeedUpdate = true;
