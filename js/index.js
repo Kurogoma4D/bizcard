@@ -83,7 +83,7 @@ function initScene(){
     scene.add(hiroMarker);
 
     // test model: plane
-    var plane = new TestPlane("plane", 0, 0.5, 0);
+    var plane = new TestPlane("plane", 0, 0.01, 0);
     hiroMarker.add(plane);
 
     // environmental particle
@@ -165,7 +165,7 @@ function renderScene(){
         particle.geometry.vertices[i].add(new THREE.Vector3(0, dy, 0));
         if (particle.geometry.vertices[i].y < 0.5) {
             particle.geometry.vertices.splice(i, 1);
-            particle.geometry.vertices.push(randomPointInSphere(4));
+            particle.geometry.vertices.push(randomPointInSquare(1));
         }
     }
     particle.geometry.colorsNeedUpdate = true;
