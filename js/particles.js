@@ -2,14 +2,14 @@ class EnvironmentParticle extends THREE.Points {
     constructor(){
         const geometry = new THREE.Geometry();
         // range of particles scattering
-        const SIZE = 4;
+        const SIZE = 1;
         // number of particles
         const NUM = 250;
         var colors = [];
         const sp = [];
 
         for(let i=0; i<NUM; i++){
-            geometry.vertices.push(randomPointInSphere(SIZE));
+            geometry.vertices.push(randomPointInSquare(SIZE));
             /*
             geometry.colors.push(
                 new THREE.Color((Math.random() * 0.05 + 0.95) * 0xFFFFFF)

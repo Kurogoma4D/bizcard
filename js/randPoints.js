@@ -13,3 +13,12 @@ function randomPointInSphere(radius) {
 
     return v;
 }
+
+function randomPointInSquare(length) {
+
+    const x = Math.random() * length - 0.5;
+    const y = Math.random();
+    const z = Math.random() * length - 0.5;
+
+    return new THREE.Vector3(x, y, z);
+}
