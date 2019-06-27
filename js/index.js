@@ -89,24 +89,6 @@ function initScene(){
     // environmental particle
     hiroMarker.add(particle);
    
-    // animated model load
-    var vloader = new THREE.GLTFLoader();
-    vloader.load('assets/models/greeting-skin-v3.glb', function(model){
-        const gltf = model;
-        gltf.scene.name = "avater";
-
-        hiroMarker.add(gltf.scene);
-        const animations = gltf.animations;
-
-        if(animations){
-            let mixer = new THREE.AnimationMixer(gltf.scene);
-            mixers.push(mixer);
-            const action = mixer.clipAction(animations[0]);
-            action.play();
-        }
-    });
-    
-    scene.fog = new THREE.FogExp2(0x000000, 0.0035);
 }
 
 // click event
@@ -169,11 +151,6 @@ function renderScene(){
     }
     particle.geometry.colorsNeedUpdate = true;
     particle.geometry.verticesNeedUpdate = true;
-
-    // animation update
-    for(let i=0, len=mixers.length; i<len; i++){
-        mixers[i].update(dt);
-    }
 
     context.update(source.domElement);
     renderer.render(scene, camera);
