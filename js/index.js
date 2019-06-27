@@ -1,5 +1,6 @@
 import EnvironmentParticle from './libs/objects/particles.js';
-import TestPlane from './libs/objects/testobj.js';
+// import TestPlane from './libs/objects/testobj.js';
+import BasePlane from './libs/objects/basePlane.js';
 
 var scene = new THREE.Scene();
 var renderer = new THREE.WebGLRenderer({
@@ -85,8 +86,8 @@ function initScene(){
     });
     scene.add(hiroMarker);
 
-    // test model: plane
-    var plane = new TestPlane("plane", 0, 0.01, 0);
+    // model: plane
+    var plane = new BasePlane("plane", -0.36, 0.01, 0);
     hiroMarker.add(plane);
 
     // environmental particle
