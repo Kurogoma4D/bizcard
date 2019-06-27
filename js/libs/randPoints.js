@@ -1,4 +1,4 @@
-function randomPointInSphere(radius) {
+export function sphere(radius) {
 
     const x = Math.random() * 2.0 - 1.0;
     const y = Math.random();
@@ -14,7 +14,7 @@ function randomPointInSphere(radius) {
     return v;
 }
 
-function randomPointInSquare(length) {
+export function square(length) {
 
     const x = Math.random() * 2.0 - 1.0;
     const y = 0;

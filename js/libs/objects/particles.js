@@ -1,4 +1,6 @@
-class EnvironmentParticle extends THREE.Points {
+import * as RandPoint from '../randPoints.js';
+
+export default class EnvironmentParticle extends THREE.Points {
     constructor(){
         const geometry = new THREE.Geometry();
         // range of particles scattering
@@ -9,7 +11,7 @@ class EnvironmentParticle extends THREE.Points {
         const sp = [];
 
         for(let i=0; i<NUM; i++){
-            geometry.vertices.push(randomPointInSquare(size));
+            geometry.vertices.push(RandPoint.square(size));
             /*
             geometry.colors.push(
                 new THREE.Color((Math.random() * 0.05 + 0.95) * 0xFFFFFF)
@@ -36,7 +38,7 @@ class EnvironmentParticle extends THREE.Points {
 
     deathAndRebirth(index) {
         this.geometry.vertices.splice(index, 1);
-        this.geometry.vertices.push(randomPointInSquare(this.size));
+        this.geometry.vertices.push(RandPoint.square(this.size));
     }
 
 }

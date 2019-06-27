@@ -1,3 +1,6 @@
+import EnvironmentParticle from './libs/objects/particles.js';
+import TestPlane from './libs/objects/testobj.js';
+
 var scene = new THREE.Scene();
 var renderer = new THREE.WebGLRenderer({
     antialias: true,
