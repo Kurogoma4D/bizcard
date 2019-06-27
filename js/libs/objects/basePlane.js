@@ -1,18 +1,34 @@
 export default class BasePlane extends THREE.Mesh {
     constructor(name, x, y, z, vs, fs) {
+        var rate = 0.026;
+        var width = 91 * rate;
+        var height = 55 * rate
+        const geometry = new THREE.PlaneGeometry(width, height);
+
         //TODO: use shader http://glslsandbox.com/e#55623.2
         const material = new THREE.ShaderMaterial({
             vertexShader: vs,
             fragmentShader: fs,
-            uniforms: this.uniforms
+            uniforms: {
+                time:{
+                    type: "float",
+                    value: 1.0
+                },
+                resolution: {
+                    type: "v2",
+                    value: new THREE.Vector2(width*660, height*660)
+                },
+                mouse: {
+                    type: "v2",
+                    value: new THREE.Vector2(0.3, 0.3)
+                },
+            }
         });
         /* 
         const material = new THREE.MeshBasicMaterial({
             color: 0x000000
         });
         */
-        var rate = 0.026;
-        const geometry = new THREE.PlaneGeometry(91 * rate, 55 * rate);
         super(geometry, material);
         this.overdraw = true;
         this.name = name;

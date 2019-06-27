@@ -2,8 +2,6 @@
 precision mediump float;
 #endif
 
-#extension GL_OES_standard_derivatives : enable
-
 uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
@@ -38,11 +36,11 @@ void main( void ) {
 	vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
 
 	p = atan((rawPosition-p) * 0.9) + sign(rawPosition) * time;
-	p = tile(p, 3.0);
+	p = tile(p, 9.0);
 	p = rotate2D(p, PI/4.0);
 	
 	
-    	float d = box(p, vec2(0.7), 0.06);
+    float d = box(p, vec2(0.7), 0.06);
 	float tiled = smoothstep(0.4,0.41,d);
 	
 	gl_FragColor = vec4(vec3(tiled)*0.2, 1.0);

@@ -1,16 +1,15 @@
-import EnvironmentParticle from './libs/objects/particles.js';
-// import TestPlane from './libs/objects/testobj.js';
+// import EnvironmentParticle from './libs/objects/particles.js';
 import BasePlane from './libs/objects/basePlane.js';
 
 var scene = new THREE.Scene();
+
 var renderer = new THREE.WebGLRenderer({
     antialias: true,
     alpha: true,
     logarithmicDepthBuffer: true
 });
-var clock = new THREE.Clock(true);
-var particle = new EnvironmentParticle();
-var mixers = new Array();
+
+var plane;
 
 // settings on renderer
 renderer.gammaOutput = true;
@@ -74,8 +73,17 @@ context.init(function onCompleted(){
 //  -----
 //  settings on scene
 //  -----
-initScene();
-function initScene(){
+
+// Shader loading
+SHADER_LOADER.load((data) => {
+    const vs = data.planeShader.vertex; // `myShader`はdata-nameに合わせる
+    const fs = data.planeShader.fragment;
+
+    // init with shader
+    initScene(vs, fs);
+});
+
+function initScene(vs, fs){
     // adding marker
     var hiroMarker = new THREE.Group();
     var controls = new THREEx.ArMarkerControls(context, hiroMarker, {
@@ -84,21 +92,9 @@ function initScene(){
     });
     scene.add(hiroMarker);
 
-    // Shader loading
-    var vs;
-    var fs;
-    SHADER_LOADER.load((data) => {
-        vs = data.planeShader.vertex; // `myShader`はdata-nameに合わせる
-        fs = data.planeShader.fragment;
-    });
-
     // model: plane
-    var plane = new BasePlane("plane", -0.36, 0.01, 0, vs, fs);
+    plane = new BasePlane("plane", -0.39, 0.01, 0, vs, fs);
     hiroMarker.add(plane);
-
-    // environmental particle
-    hiroMarker.add(particle);
-   
 }
 
 // click event
@@ -140,27 +136,9 @@ function renderScene(){
     if(source.ready === false){
         return;
     }
-    //particleSystem.animate(clock);
-    //particleSystem.update();
-    var c = {};
-    var dt = clock.getDelta();
 
-    // particle update
-    // color, position
-    c = particle.material.color.getHSL({ target: c });
-    var nextHue = (c.h + dt * 0.05) % 1.0;
-    particle.material.color.setHSL(nextHue, c.s, c.l);
-    
-    for(let i=particle.geometry.vertices.length-1; i>=0; i--){
-        var dy = particle.speeds[i];
-        
-        particle.geometry.vertices[i].add(new THREE.Vector3(0, dy, 0));
-        if (particle.geometry.vertices[i].y > particle.speeds[i] * 40) {
-            particle.deathAndRebirth(i);
-        }
-    }
-    particle.geometry.colorsNeedUpdate = true;
-    particle.geometry.verticesNeedUpdate = true;
+    // plane update
+    plane.material.uniforms.time.value += 0.005;
 
     context.update(source.domElement);
     renderer.render(scene, camera);
