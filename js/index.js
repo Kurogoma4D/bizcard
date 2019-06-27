@@ -70,8 +70,6 @@ context.init(function onCompleted(){
     camera.projectionMatrix.copy(context.getProjectionMatrix());
 });
 
-// GPU particle initialize
-//var particleSystem = new PTsystem();
 
 //  -----
 //  settings on scene
@@ -86,8 +84,16 @@ function initScene(){
     });
     scene.add(hiroMarker);
 
+    // Shader loading
+    var vs;
+    var fs;
+    SHADER_LOADER.load((data) => {
+        vs = data.planeShader.vertex; // `myShader`はdata-nameに合わせる
+        fs = data.planeShader.fragment;
+    });
+
     // model: plane
-    var plane = new BasePlane("plane", -0.36, 0.01, 0);
+    var plane = new BasePlane("plane", -0.36, 0.01, 0, vs, fs);
     hiroMarker.add(plane);
 
     // environmental particle

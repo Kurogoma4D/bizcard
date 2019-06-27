@@ -1,5 +1,6 @@
 export default class BasePlane extends THREE.Mesh {
-    constructor(name, x, y, z) {
+    constructor(name, x, y, z, vs, fs) {
+        //TODO: use shader http://glslsandbox.com/e#55623.2
         const material = new THREE.MeshBasicMaterial({
             color: 0x000000
         });
