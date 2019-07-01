@@ -31,14 +31,15 @@ vec2 rotate2D(vec2 _p, float _angle) {
 
 void main( void ) {
 
+	vec2 translatedCoord = vUv * resolution;
 	vec2 rawPosition = vec2(mouse.x* 2.0 - 1.0, mouse.y * 2.0 - 1.0);
-	vec2 position = ( gl_FragCoord.xy / resolution.xy ) + mouse / 2.0;
+	vec2 position = ( translatedCoord.xy / resolution.xy ) + mouse / 2.0;
 
 	float color = 0.0;
-	vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
+	vec2 p = (translatedCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
 
-	p = atan((rawPosition-p) * 0.9) + sign(rawPosition) * time;
-	p = tile(p, 9.0);
+	p = atan((rawPosition - p) * 0.9) + sign(rawPosition) * time;
+	p = tile(p, 4.0);
 	p = rotate2D(p, PI/4.0);
 	
 	
