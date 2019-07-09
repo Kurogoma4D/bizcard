@@ -5,6 +5,7 @@ precision mediump float;
 uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
+uniform sampler2D texture;
 
 varying vec2 vUv;
 
@@ -49,5 +50,6 @@ void main( void ) {
 	gl_FragColor = vec4(vec3(tiled)*0.2, 1.0);
 	gl_FragColor *= vec4( vec3( sin(color / time + position.x),  0.2, cos(color / time + position.y)  ) + 0.12, 1.0 );
 	gl_FragColor += vec4( vec3( sin(color / time + position.x), 0.2, cos(color / time + position.y)  ) + 0.3, 1.0 );
+	gl_FragColor += texture2D(texture, vUv);
 
 }

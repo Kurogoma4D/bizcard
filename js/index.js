@@ -1,5 +1,6 @@
 // import EnvironmentParticle from './libs/objects/particles.js';
 import BasePlane from './libs/objects/basePlane.js';
+import BannerPlane from './libs/objects/bannerPlane.js';
 
 var scene = new THREE.Scene();
 
@@ -75,9 +76,13 @@ context.init(function onCompleted(){
 //  -----
 
 // Shader loading
+// 参考: https://qiita.com/mczkzk/items/079c36b6ee3f0a802572
 SHADER_LOADER.load((data) => {
-    const vs = data.planeShader.vertex; // `myShader`はdata-nameに合わせる
-    const fs = data.planeShader.fragment;
+    // data.`data-name`.[vertex | fragment]
+    const vs = data.planeShader.vertex;
+    const fs = {
+        basefs: data.planeShader.fragment,
+    };
 
     // init with shader
     initScene(vs, fs);
@@ -93,8 +98,13 @@ function initScene(vs, fs){
     scene.add(hiroMarker);
 
     // model: plane
-    plane = new BasePlane("plane", -0.39, 0.01, 0, vs, fs);
+    plane = new BasePlane("basePlane", -0.39, 0.01, 0, vs, fs['basefs']);
     hiroMarker.add(plane);
+
+    // model: plane
+    //banner = new BannerPlane("bannerPlane", -0.39, 1.5, 1, vs, fs['basefs']);
+    // hiroMarker.add(plane);
+
 }
 
 // click event
@@ -118,8 +128,8 @@ window.addEventListener("mousedown", function(e){
 
 function picked(objName){
     switch(objName){
-        case "avater":
-            console.log("character tapped");
+        case "basePlane":
+            console.log("welcome");
             break;
         default:
             break;
