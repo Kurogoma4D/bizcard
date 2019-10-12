@@ -69,7 +69,7 @@ var context = new THREEx.ArToolkitContext({
   maxDetectionRate: 60,
   canvasWidth: source.parameters.sourceWidth,
   canvasHeight: source.parameters.sourceHeight,
-  patternRatio: 0.61,
+  patternRatio: 0.80,
 });
 
 context.init(function onCompleted() {
