@@ -98,7 +98,7 @@ function initScene(vs, fs) {
   var qrMarker = new THREE.Group();
   var controls = new THREEx.ArMarkerControls(context, qrMarker, {
     type: "pattern",
-    patternUrl: "assets/marker/pattern-qrcode_201910121144.patt",
+    patternUrl: "assets/marker/pattern-qrLogo.patt",
   });
   scene.add(qrMarker);
 
